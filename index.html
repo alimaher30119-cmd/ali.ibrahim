@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ali Mahir Ali Ibrahim, PhD — Researcher</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0e17;
+  --bg-card: #111827;
+  --bg-card-hover: #1a2332;
+  --accent: #38bdf8;
+  --accent-dim: rgba(56,189,248,0.12);
+  --accent-glow: rgba(56,189,248,0.25);
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --text-muted: #64748b;
+  --border: #1e293b;
+  --green: #34d399;
+  --amber: #fbbf24;
+  --rose: #fb7185;
+  --radius: 12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
+
+/* Background grid */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(56,189,248,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,189,248,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Glow orbs */
+.glow-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-orb.one { width: 500px; height: 500px; background: var(--accent); top: -100px; right: -100px; }
+.glow-orb.two { width: 400px; height: 400px; background: #8b5cf6; bottom: 20%; left: -150px; }
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+  background: rgba(10,14,23,0.8);
+  border-bottom: 1px solid var(--border);
+}
+nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.25rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--text-dim); font-weight: 300; font-family: 'Outfit'; font-size: 0.85rem; margin-left: 8px; }
+.nav-links { display: flex; gap: 8px; }
+.nav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all 0.25s;
+  letter-spacing: 0.02em;
+}
+.nav-links a:hover { color: var(--accent); background: var(--accent-dim); }
+
+/* HERO */
+.hero {
+  padding: 140px 0 80px;
+  position: relative;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 48px;
+  align-items: start;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  animation: fadeIn 0.6s ease;
+}
+.hero-badge .dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 3.5rem;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 20px;
+  animation: slideUp 0.7s ease;
+}
+.hero h1 em { color: var(--accent); font-style: italic; }
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  max-width: 540px;
+  margin-bottom: 32px;
+  animation: slideUp 0.8s ease;
+}
+
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; animation: slideUp 0.9s ease; }
+.tag {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 5px 14px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  transition: all 0.25s;
+}
+.tag:hover { border-color: var(--accent); color: var(--accent); }
+
+.hero-info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  animation: fadeIn 1s ease;
+}
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.info-item:last-child { border-bottom: none; }
+.info-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--accent-dim);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+.info-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 600; }
+.info-value { font-size: 0.88rem; color: var(--text); margin-top: 2px; }
+.info-value a { color: var(--accent); text-decoration: none; }
+.info-value a:hover { text-decoration: underline; }
+
+/* SECTION LAYOUT */
+section {
+  padding: 80px 0;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.section-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--accent);
+  background: var(--accent-dim);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  color: #fff;
+}
+.section-line { flex: 1; height: 1px; background: var(--border); }
+
+/* CARDS */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.card:hover { border-color: rgba(56,189,248,0.3); background: var(--bg-card-hover); }
+.card:hover::before { opacity: 1; }
+
+/* EDUCATION */
+.edu-grid { display: grid; gap: 20px; }
+.edu-card .edu-degree {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.edu-card .edu-school { color: var(--accent); font-weight: 500; font-size: 0.92rem; }
+.edu-card .edu-meta { color: var(--text-muted); font-size: 0.82rem; margin-top: 6px; }
+.edu-card .edu-gpa {
+  display: inline-block;
+  background: var(--accent-dim);
+  color: var(--accent);
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-top: 8px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* RESEARCH AREAS */
+.research-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.research-card .research-icon { font-size: 1.6rem; margin-bottom: 12px; }
+.research-card h3 { font-size: 1.05rem; color: #fff; margin-bottom: 8px; font-weight: 600; }
+.research-card p { font-size: 0.88rem; color: var(--text-dim); line-height: 1.65; }
+
+/* PUBLICATIONS */
+.pub-list { display: grid; gap: 14px; }
+.pub-type-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  margin-top: 24px;
+}
+.pub-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  transition: all 0.3s;
+}
+.pub-item:hover { border-color: rgba(56,189,248,0.3); }
+.pub-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  background: rgba(100,116,139,0.15);
+  padding: 3px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.pub-title { font-size: 0.9rem; color: var(--text); line-height: 1.55; }
+.pub-venue {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.pub-venue .q-badge {
+  background: rgba(52,211,153,0.15);
+  color: var(--green);
+  padding: 1px 7px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+/* EXPERIENCE */
+.exp-grid { display: grid; gap: 20px; }
+.exp-card .exp-role { font-size: 1.05rem; color: #fff; font-weight: 600; }
+.exp-card .exp-org { color: var(--accent); font-size: 0.9rem; font-weight: 500; }
+.exp-card .exp-period {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin: 6px 0 10px;
+}
+.exp-card ul { list-style: none; }
+.exp-card ul li {
+  padding: 4px 0;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  padding-left: 18px;
+  position: relative;
+}
+.exp-card ul li::before {
+  content: '▹';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* SKILLS */
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.skill-group h4 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-tag {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: all 0.25s;
+}
+.skill-tag:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+/* AWARDS */
+.awards-list { display: grid; gap: 14px; }
+.award-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  transition: all 0.3s;
+}
+.award-item:hover { border-color: rgba(251,191,36,0.4); }
+.award-year {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--amber);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.award-text { font-size: 0.9rem; color: var(--text); }
+
+/* LINKS / CONTACT */
+.links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.link-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.link-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(56,189,248,0.1); }
+.link-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.link-icon.scholar { background: rgba(66,133,244,0.15); color: #4285f4; }
+.link-icon.orcid { background: rgba(166,206,57,0.15); color: #a6ce39; }
+.link-icon.linkedin { background: rgba(10,102,194,0.15); color: #0a66c2; }
+.link-icon.ieee { background: rgba(0,98,152,0.15); color: #006298; }
+.link-card .link-name { font-weight: 600; font-size: 0.92rem; color: #fff; }
+.link-card .link-url { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+/* FOOTER */
+footer {
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+.animate { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.animate.visible { opacity: 1; transform: translateY(0); }
+
+/* MOBILE NAV TOGGLE */
+.nav-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; padding: 4px; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  .hero h1 { font-size: 2.4rem; }
+  .research-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+  .links-grid { grid-template-columns: 1fr; }
+  .nav-links { 
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: rgba(10,14,23,0.95);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-links.open { display: flex; }
+  .nav-toggle { display: block; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 2rem; }
+  .skills-grid { grid-template-columns: 1fr; }
+  section { padding: 60px 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="glow-orb one"></div>
+<div class="glow-orb two"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <a href="#" class="nav-logo">AMI<span>PhD</span></a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">☰</button>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#awards">Awards</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-badge"><span class="dot"></span> Open to Collaboration</div>
+        <h1>Ali Mahir Ali<br>Ibrahim, <em>PhD</em></h1>
+        <p class="hero-subtitle">Postdoctoral Researcher in Computer Science &amp; Wireless Communications at KFUPM. Specializing in 5G/6G networks, V2X systems, IoT, and AI-driven resource allocation.</p>
+        <div class="hero-tags">
+          <span class="tag">5G/6G</span>
+          <span class="tag">V2X</span>
+          <span class="tag">IoT</span>
+          <span class="tag">AI/ML</span>
+          <span class="tag">Massive MIMO</span>
+          <span class="tag">Deep RL</span>
+        </div>
+      </div>
+      <div class="hero-info-card">
+        <div class="info-item">
+          <div class="info-icon">🏛</div>
+          <div>
+            <div class="info-label">Affiliation</div>
+            <div class="info-value">KFUPM, Dhahran, KSA</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">✉</div>
+          <div>
+            <div class="info-label">Email</div>
+            <div class="info-value"><a href="mailto:alimaher_912@hotmail.com">alimaher_912@hotmail.com</a></div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📞</div>
+          <div>
+            <div class="info-label">Phone</div>
+            <div class="info-value">+966 500 869 943</div>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">📄</div>
+          <div>
+            <div class="info-label">Publications</div>
+            <div class="info-value">15+ Peer-Reviewed Papers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">Education</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-grid">
+      <div class="card edu-card animate">
+        <div class="edu-degree">PhD in Computer Science &amp; Engineering</div>
+        <div class="edu-school">Central South University — Changsha, China</div>
+        <div class="edu-meta">2025 · Dissertation: AI-driven resource allocation in next-gen wireless networks</div>
+        <span class="edu-gpa">GPA 3.77 / 4.0</span>
+      </div>
+      <div class="card edu-card animate">
+        <div class="edu-degree">MSc in Communication Engineering</div>
+        <div class="edu-school">University of Gezira — Madani, Sudan</div>
+        <div class="edu-meta">2016</div>
+        <span class="edu-gpa">GPA 3.71 / 4.0</span>
+      </div>
+      <div class="card edu-card animate">
+        <div class="edu-degree">BSc in Communications Engineering (Honors)</div>
+        <div class="edu-school">University of Gezira — Madani, Sudan</div>
+        <div class="edu-meta">2012 · Graduated with Honors</div>
+        <span class="edu-gpa">GPA 3.15 / 4.0</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">Research Areas</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="research-grid">
+      <div class="card research-card animate">
+        <div class="research-icon">📡</div>
+        <h3>5G/6G & Next-Gen Wireless</h3>
+        <p>Massive MIMO, millimeter-wave communications, network slicing, and performance optimization for next-generation networks.</p>
+      </div>
+      <div class="card research-card animate">
+        <div class="research-icon">🚗</div>
+        <h3>Vehicle-to-Everything (V2X)</h3>
+        <p>Spectrum resource allocation, power control strategies, and C-V2X protocol optimization for connected vehicles.</p>
+      </div>
+      <div class="card research-card animate">
+        <div class="research-icon">🌐</div>
+        <h3>IoT & Smart Systems</h3>
+        <p>IoT network architectures, packet transmission scheduling, and energy-efficient data collection for smart cities.</p>
+      </div>
+      <div class="card research-card animate">
+        <div class="research-icon">🤖</div>
+        <h3>AI/ML for Wireless Networks</h3>
+        <p>Deep reinforcement learning, Bayesian game theory, and generative AI applied to wireless resource management.</p>
+      </div>
+      <div class="card research-card animate">
+        <div class="research-icon">🛡</div>
+        <h3>Intelligent Transportation</h3>
+        <p>Driver behavior analysis, crash prediction models, and impact of driving automation on road safety.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">Selected Publications</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="pub-type-label">Journal Articles</div>
+    <div class="pub-list">
+      <div class="pub-item animate">
+        <span class="pub-id">J1</span>
+        <div>
+          <div class="pub-title">Investigating the factors influencing Repeatedly Crash-Involved Drivers (RCIDs): A Random Parameter Hazard-Based Duration approach</div>
+          <div class="pub-venue">Accident Analysis &amp; Prevention, vol. 211, 2025 <span class="q-badge">Q1</span></div>
+        </div>
+      </div>
+      <div class="pub-item animate">
+        <span class="pub-id">J2</span>
+        <div>
+          <div class="pub-title">Advancing 6G-IoT networks: Willow catkin packet transmission scheduling with AI and Bayesian game-theoretic approach</div>
+          <div class="pub-venue">Internet of Things (Elsevier), vol. 25, 2024</div>
+        </div>
+      </div>
+      <div class="pub-item animate">
+        <span class="pub-id">J3</span>
+        <div>
+          <div class="pub-title">Optimizing V2X Communication: Spectrum Resource and Power Control Strategies for Next-Gen Wireless Technologies</div>
+          <div class="pub-venue">Applied Sciences (MDPI), 2024</div>
+        </div>
+      </div>
+      <div class="pub-item animate">
+        <span class="pub-id">J4</span>
+        <div>
+          <div class="pub-title">Location and Time Aware Multitask Allocation in Mobile Crowd-Sensing Based on Genetic Algorithm</div>
+          <div class="pub-venue">Sensors (MDPI), 2022</div>
+        </div>
+      </div>
+      <div class="pub-item animate">
+        <span class="pub-id">J5</span>
+        <div>
+          <div class="pub-title">Parallel Offloading in Green and Sustainable Mobile Edge Computing for Delay-constrained IoT System</div>
+          <div class="pub-venue">IEEE Transactions on Vehicular Technology, 2019</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pub-type-label">Conference Papers</div>
+    <div class="pub-list">
+      <div class="pub-item animate">
+        <span class="pub-id">C1</span>
+        <div>
+          <div class="pub-title">L-GAI-DRL: A Lightweight Generative AI-Based DRL Framework for Energy-Efficient Data Collection in Satellite IoT Networks</div>
+          <div class="pub-venue">IEEE CSCWD 2026, Fuzhou, China (Accepted)</div>
+        </div>
+      </div>
+      <div class="pub-item animate">
+        <span class="pub-id">C2</span>
+        <div>
+          <div class="pub-title">Exploring the Influence of Different Levels of Driving Automation in Vehicle Recurrent Crashes: A Random Forest Approach</div>
+          <div class="pub-venue">IEEE ICITE 2024</div>
+        </div>
+      </div>
+      <div class="pub-item animate">
+        <span class="pub-id">C3</span>
+        <div>
+          <div class="pub-title">Sum-rate analysis of massive MIMO system for linear precoding using normalization methods</div>
+          <div class="pub-venue">IEEE ICCCCEE 2017</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="exp-grid">
+      <div class="card exp-card animate">
+        <div class="exp-role">Postdoctoral Researcher</div>
+        <div class="exp-org">King Fahd University of Petroleum &amp; Minerals (KFUPM)</div>
+        <div class="exp-period">2026 — Present · Dhahran, Saudi Arabia</div>
+        <ul>
+          <li>Conducting advanced research in 5G/6G wireless networks, V2X systems, and AI-driven communications</li>
+          <li>Engaged in grant proposal development and manuscript preparation for top-tier journals</li>
+          <li>Available for joint supervision of graduate students and collaborative research initiatives</li>
+        </ul>
+      </div>
+      <div class="card exp-card animate">
+        <div class="exp-role">Lecturer — Telecommunication Engineering</div>
+        <div class="exp-org">Managil University of Science and Technology (MUST)</div>
+        <div class="exp-period">2018 — 2025 · Sudan</div>
+        <ul>
+          <li>Taught Digital Communication, Electromagnetic Fields, SCADA Systems, Research Methodology</li>
+          <li>Established Analog Communication Lab and Digital Signal Processing Lab</li>
+          <li>Designed foundational academic system for the Engineering College</li>
+        </ul>
+      </div>
+      <div class="card exp-card animate">
+        <div class="exp-role">Lecturer & Deputy Head — Electronics & Electrical Engineering</div>
+        <div class="exp-org">University of Medical Science and Technology (UMST)</div>
+        <div class="exp-period">2016 — 2018 · Sudan</div>
+        <ul>
+          <li>Led curriculum development for the cooperative communication engineering program</li>
+          <li>Supervised undergraduate research groups and graduation projects</li>
+          <li>Served on Accreditation and Examination Committees</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="card animate">
+        <div class="skill-group">
+          <h4>Programming</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">C/C++</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">MATLAB</span>
+          </div>
+        </div>
+      </div>
+      <div class="card animate">
+        <div class="skill-group">
+          <h4>Network Simulation</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">NS-3</span>
+            <span class="skill-tag">Cisco Packet Tracer</span>
+            <span class="skill-tag">GNS3</span>
+            <span class="skill-tag">NS-2</span>
+          </div>
+        </div>
+      </div>
+      <div class="card animate">
+        <div class="skill-group">
+          <h4>Data & Analysis</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Origin</span>
+            <span class="skill-tag">OptiSystem</span>
+            <span class="skill-tag">Wireshark</span>
+          </div>
+        </div>
+      </div>
+      <div class="card animate">
+        <div class="skill-group">
+          <h4>Electronic Design</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Proteus</span>
+            <span class="skill-tag">Multisim</span>
+            <span class="skill-tag">Arduino</span>
+            <span class="skill-tag">Raspberry Pi</span>
+          </div>
+        </div>
+      </div>
+      <div class="card animate">
+        <div class="skill-group">
+          <h4>Platforms</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">Linux (Ubuntu)</span>
+            <span class="skill-tag">Windows</span>
+          </div>
+        </div>
+      </div>
+      <div class="card animate">
+        <div class="skill-group">
+          <h4>Research Domains</h4>
+          <div class="skill-tags">
+            <span class="skill-tag">5G/6G</span>
+            <span class="skill-tag">V2X</span>
+            <span class="skill-tag">IoT</span>
+            <span class="skill-tag">Massive MIMO</span>
+            <span class="skill-tag">AI/ML</span>
+            <span class="skill-tag">Deep RL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <h2 class="section-title">Honors & Awards</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="awards-list">
+      <div class="award-item animate">
+        <span class="award-year">2018</span>
+        <div class="award-text">🏆 PhD Scholarship Award — Central South University, Changsha, China (Competitive Full Scholarship)</div>
+      </div>
+      <div class="award-item animate">
+        <span class="award-year">2018</span>
+        <div class="award-text">🥇 Best Paper Award — IEEE ICCCEEE Conference, Khartoum, Sudan</div>
+      </div>
+      <div class="award-item animate">
+        <span class="award-year">2017</span>
+        <div class="award-text">🥇 Best Paper Award — IEEE ICCCCEE Conference, Khartoum, Sudan</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / LINKS -->
+<section id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <h2 class="section-title">Connect</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="links-grid">
+      <a href="https://scholar.google.com/citations?user=j1OcvgwAAAAJ" target="_blank" class="link-card animate">
+        <div class="link-icon scholar">🎓</div>
+        <div>
+          <div class="link-name">Google Scholar</div>
+          <div class="link-url">View Publications</div>
+        </div>
+      </a>
+      <a href="https://orcid.org/0000-0001-6363-4738" target="_blank" class="link-card animate">
+        <div class="link-icon orcid">🆔</div>
+        <div>
+          <div class="link-name">ORCID</div>
+          <div class="link-url">0000-0001-6363-4738</div>
+        </div>
+      </a>
+      <a href="https://www.linkedin.com/in/ali-m-a-ibrahim-67a61878" target="_blank" class="link-card animate">
+        <div class="link-icon linkedin">💼</div>
+        <div>
+          <div class="link-name">LinkedIn</div>
+          <div class="link-url">Professional Profile</div>
+        </div>
+      </a>
+      <a href="mailto:alimaher_912@hotmail.com" class="link-card animate">
+        <div class="link-icon ieee">✉️</div>
+        <div>
+          <div class="link-name">Email</div>
+          <div class="link-url">alimaher_912@hotmail.com</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    © 2026 Ali Mahir Ali Ibrahim, PhD · Built for GitHub Pages
+  </div>
+</footer>
+
+<script>
+// Scroll-triggered animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+// Close mobile nav on link click
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => document.querySelector('.nav-links').classList.remove('open'));
+});
+</script>
+</body>
+</html>
